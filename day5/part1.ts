@@ -17,16 +17,13 @@ const result = orders
   .filter(
     (order) =>
       !rules
-        .map(([before, after]) => {
-          if (order.includes(before) && order.includes(after)) {
-            if (order.indexOf(before) > order.indexOf(after)) {
-              return false;
-            }
-          }
-
-          return true;
-        })
-        .includes(false)
+        .map(
+          ([before, after]) =>
+            order.includes(before) &&
+            order.includes(after) &&
+            order.indexOf(before) > order.indexOf(after)
+        )
+        .includes(true)
   )
   .map((order) => order[Math.floor(order.length / 2)])
   .reduce((a, b) => a + b, 0);
